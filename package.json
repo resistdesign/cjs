@@ -1,0 +1,37 @@
+{
+  "name": "@resistdesign/cjs",
+  "version": "0.0.0",
+  "description": "A JavaScript Database Collection Manager with Context Driven Typing and Relationship Mapping.",
+  "public": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/resistdesign/cjs.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "Database",
+    "Collection",
+    "ORM",
+    "ODM",
+    "MongoDB",
+    "NodeJS",
+    "Context",
+    "Node",
+    "JS",
+    "Mongo",
+    "DB"
+  ],
+  "author": "Resist Design",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/resistdesign/cjs/issues"
+  },
+  "homepage": "https://cjs.resist.design",
+  "dependencies": {
+    "mongodb": "^2.1.19"
+  }
+}
