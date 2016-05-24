@@ -33,10 +33,17 @@
     <meta name="msapplication-config" content="./cjs-icons/browserconfig.xml">
 
     <meta name="theme-color" content="#47ff89">
+
+    <style type="text/css">
+        .logo {
+            width: 90%;
+            max-width: 453px;
+        }
+    </style>
 </head>
 <body>
 <section class="page-header">
-    <img src="logo.svg">
+    <img src="logo.svg" class="logo">
     <h2 class="project-tagline">A JavaScript Database Collection Manager with
         <br>
         Context Driven Typing and Relationship Mapping.</h2>
@@ -72,13 +79,20 @@
 </section>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-78170642-3', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-78170642-3', 'auto');
+    ga('send', 'pageview');
 
 </script>
 </body>
