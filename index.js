@@ -275,9 +275,14 @@ export default class Collection {
     }
   };
 
-  static async getCollectionStructure(config) {
+  static async getCollectionStructure(config, map = new Map()) {
     const { name, context, db } = config;
     const newContext = { ...context };
+    const existingCollection = map instanceof Map ? map.get(config) : undefined;
+
+    if (existingCollection instanceof Collection) {
+      return existingCollection;
+    }
 
     for (let k in context) {
       const type = context[k];
@@ -285,14 +290,18 @@ export default class Collection {
       if (type instanceof Array && type[0] instanceof Object) {
         const nestedConfig = type[0];
 
-        newContext[k] = [await Collection.getCollectionStructure(nestedConfig)];
+        newContext[k] = [await Collection.getCollectionStructure(nestedConfig, map)];
       } else if (type && type.constructor === Object) {
-        newContext[k] = await Collection.getCollectionStructure(type);
+        newContext[k] = await Collection.getCollectionStructure(type, map);
       }
     }
 
     const newCollection = await new Collection(name, newContext, await Collection.getDb(db)).init();
     newCollection.deleteNested = config.deleteNested;
+
+    if (map instanceof Map) {
+      map.set(config, newCollection);
+    }
 
     return newCollection;
   }
