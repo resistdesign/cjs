@@ -1021,7 +1021,7 @@ export default class Collection {
 
   /**
    * Close the database connection.
-   * @param {Boolean} all A flag signifying that all nested database connection should also be closed.
+   * @param {Boolean} all A flag signifying that all nested database connections should also be closed.
    * */
   async close(all) {
     if (this.db) {
