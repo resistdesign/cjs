@@ -55,7 +55,7 @@ createTodo();
 
 ## API
 
-View the API documentation [here](docs/index.md).
+View the API documentation [here](http://cjs.resist.design/docs).
 
 ## License
 
