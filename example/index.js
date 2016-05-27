@@ -1,14 +1,3 @@
-# Collection JS
-
-A JavaScript Database Collection Manager with Context Driven Typing and Relationship Mapping.
-
-## Installation
-
-Run `npm i -S @resistdesign/cjs`
-
-## Usage
-
-```js
 import Collection from '@resistdesign/cjs';
 
 async function createTodo() {
@@ -51,12 +40,3 @@ async function createTodo() {
 }
 
 createTodo();
-```
-
-## API
-
-View the API documentation [here](docs/index.md).
-
-## License
-
-MIT
