@@ -1,0 +1,742 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>  | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation'>
+  <div class='container'>
+    <div class='clearfix md-mxn2'>
+      <div class='fixed md-show fix-3 overflow-auto max-height-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'></h3>
+          <div class='mb1'><code></code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block field'
+            type='text' />
+          <div id='toc'>
+              <a
+                href='#Collection'
+                class='block bold'>
+                Collection
+              </a>
+                <a
+                  href='#Collection.getCollectionStructure'
+                  class='regular block'>
+                  .getCollectionStructure
+                </a>
+                <a
+                  href='#Collection.close'
+                  class='regular block'>
+                  #close
+                </a>
+                <a
+                  href='#Collection.constructor'
+                  class='regular block'>
+                  #constructor
+                </a>
+                <a
+                  href='#Collection.create'
+                  class='regular block'>
+                  #create
+                </a>
+                <a
+                  href='#Collection.delete'
+                  class='regular block'>
+                  #delete
+                </a>
+                <a
+                  href='#Collection.init'
+                  class='regular block'>
+                  #init
+                </a>
+                <a
+                  href='#Collection.read'
+                  class='regular block'>
+                  #read
+                </a>
+                <a
+                  href='#Collection.search'
+                  class='regular block'>
+                  #search
+                </a>
+                <a
+                  href='#Collection.update'
+                  class='regular block'>
+                  #update
+                </a>
+              <a
+                href='#collection'
+                class='block bold'>
+                collection
+              </a>
+              <a
+                href='#context'
+                class='block bold'>
+                context
+              </a>
+              <a
+                href='#db'
+                class='block bold'>
+                db
+              </a>
+              <a
+                href='#deleteNested'
+                class='block bold'>
+                deleteNested
+              </a>
+              <a
+                href='#name'
+                class='block bold'>
+                name
+              </a>
+          </div>
+        </div>
+      </div>
+      <div class='fix-margin-3'>
+        <div class='px2'>
+<div class='py1'><section class='py2 clearfix'>
+  <h2 id='Collection' class='mt0'>
+    Collection<span class='gray'></span>
+  </h2>
+  
+  
+  
+  
+  
+  <p>A JavaScript Database Collection Manager with Context Driven Typing and Relationship Mapping.</p>
+
+      <h4>Static members</h4>
+        <div class='collapsible' id='Collection.getCollectionStructure'>
+          <a href='#Collection.getCollectionStructure'>
+            <code>
+              .getCollectionStructure<span class='gray'>(config, [map])</span>
+            </code>
+            <div class='force-inline'>
+              <p>Get a Collection instance, potentially with other nested Collections.
+Cyclical structures <strong>are</strong> permitted.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2 m2'>
+<section class='py2 clearfix'>
+  <h2 id='Collection.getCollectionStructure' class='mt0'>
+    getCollectionStructure<span class='gray'>(config, [map])</span>
+  </h2>
+  
+  
+  
+  
+  
+  <p>Get a Collection instance, potentially with other nested Collections.
+Cyclical structures <strong>are</strong> permitted.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+ <strong>config</strong>
+          :
+          <div class='force-inline'>
+            <p>The configuration for the Collection.
+Config contains the following properties:</p>
+<hr />
+ - `name`: The human readable name of the Collection.
+ - `context`: A map of field names to types.
+Each key is the name of a field and each value is the valid type of data for that field.
+<hr />
+Supported built-in/primitive types: Any serializable type. **WARNING:** `Object` and `Array` types
+will not be not be type checked.
+Nested types:
+<hr />
+ - A nested `Collection`.
+ - A nested `Array` containing a `Collection`.
+`db`: The MongoDB database connection string including authentication information.
+
+          </div>
+        </li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a>
+=
+(default new Map())
+ <strong>map</strong>
+          :
+          <div class='force-inline'>
+            <p>(Typically not passed.) A map of config object to Collection instances used for tracking
+cyclical structures and avoiding infinite loops.</p>
+
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code>Collection
+</code>
+      :
+      <div class='force-inline'>
+        <p>The configured, connected and initialized <code>Collection</code> instance.</p>
+
+      </div>
+</section>
+          </div>
+        </div>
+      <h4>Instance members</h4>
+        <div class='collapsible' id='Collection.close'>
+          <a href='#Collection.close'>
+            <code>
+              #close<span class='gray'>(all)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Close the database connection.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+<section class='py2 clearfix'>
+  <h2 id='Collection.close' class='mt0'>
+    close<span class='gray'>(all)</span>
+  </h2>
+  
+  
+  
+  
+  
+  <p>Close the database connection.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+ <strong>all</strong>
+          :
+          <div class='force-inline'>
+            <p>A flag signifying that all nested database connection should also be closed.</p>
+
+          </div>
+        </li>
+    </ul>
+</section>
+          </div>
+        </div>
+        <div class='collapsible' id='Collection.constructor'>
+          <a href='#Collection.constructor'>
+            <code>
+              #constructor<span class='gray'>(name, context, db)</span>
+            </code>
+            <div class='force-inline'>
+              
+            </div>
+          </a>
+          <div class='collapser border px2'>
+<section class='py2 clearfix'>
+  <h2 id='Collection.constructor' class='mt0'>
+    constructor<span class='gray'>(name, context, db)</span>
+  </h2>
+  
+  
+  
+  
+  
+  
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
+ <strong>name</strong>
+          :
+          <div class='force-inline'>
+            <p>The human readable name of the Collection.</p>
+
+          </div>
+        </li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+ <strong>context</strong>
+          :
+          <div class='force-inline'>
+            <p>The context map.</p>
+
+          </div>
+        </li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+ <strong>db</strong>
+          :
+          <div class='force-inline'>
+            <p>The MongoDB instance.</p>
+
+          </div>
+        </li>
+    </ul>
+</section>
+          </div>
+        </div>
+        <div class='collapsible' id='Collection.create'>
+          <a href='#Collection.create'>
+            <code>
+              #create<span class='gray'>(items)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Create item(s).
+Any items in the nested structure are nested into the new items and updated if they have
+been changed.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+<section class='py2 clearfix'>
+  <h2 id='Collection.create' class='mt0'>
+    create<span class='gray'>(items)</span>
+  </h2>
+  
+  
+  
+  
+  
+  <p>Create item(s).
+Any items in the nested structure are nested into the new items and updated if they have
+been changed.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li>(
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+|
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+.<
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+>
+)
+ <strong>items</strong>
+          :
+          <div class='force-inline'>
+            <p>The item or array of items to be created.</p>
+
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code>(
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+|
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+.<
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+>
+)
+</code>
+      :
+      <div class='force-inline'>
+        <p>An object or array of objects (each) with only the new <code>id</code>.</p>
+
+      </div>
+</section>
+          </div>
+        </div>
+        <div class='collapsible' id='Collection.delete'>
+          <a href='#Collection.delete'>
+            <code>
+              #delete<span class='gray'>(ids)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Delete item(s) by <code>id</code>.
+All items in the nested structure are deleted based on the <code>deleteNested</code> map of the
+applicable Collection.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+<section class='py2 clearfix'>
+  <h2 id='Collection.delete' class='mt0'>
+    delete<span class='gray'>(ids)</span>
+  </h2>
+  
+  
+  
+  
+  
+  <p>Delete item(s) by <code>id</code>.
+All items in the nested structure are deleted based on the <code>deleteNested</code> map of the
+applicable Collection.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li>(
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
+|
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+.<
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
+>
+)
+ <strong>ids</strong>
+          :
+          <div class='force-inline'>
+            <p>The id or array of ids of the item(s) to be deleted.</p>
+
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code>(
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+|
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+.<
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+>
+)
+</code>
+      :
+      <div class='force-inline'>
+        <p>An object or array of objects representing the deleted
+item(s) (each) with only the <code>id</code>.</p>
+
+      </div>
+</section>
+          </div>
+        </div>
+        <div class='collapsible' id='Collection.init'>
+          <a href='#Collection.init'>
+            <code>
+              #init<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>Initializer the MongoDB collection.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+<section class='py2 clearfix'>
+  <h2 id='Collection.init' class='mt0'>
+    init<span class='gray'></span>
+  </h2>
+  
+  
+  
+  
+  
+  <p>Initializer the MongoDB collection.</p>
+
+</section>
+          </div>
+        </div>
+        <div class='collapsible' id='Collection.read'>
+          <a href='#Collection.read'>
+            <code>
+              #read<span class='gray'>(ids)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Read item(s) by id.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+<section class='py2 clearfix'>
+  <h2 id='Collection.read' class='mt0'>
+    read<span class='gray'>(ids)</span>
+  </h2>
+  
+  
+  
+  
+  
+  <p>Read item(s) by id.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li>(
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
+|
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+.<
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
+>
+)
+ <strong>ids</strong>
+          :
+          <div class='force-inline'>
+            <p>The id or array of ids of the item(s) to be read.</p>
+
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code>(
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+|
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+.<
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+>
+)
+</code>
+      :
+      <div class='force-inline'>
+        <p>An object or array of objects (each) with all nested objects
+attached based on the <code>context</code>.</p>
+
+      </div>
+</section>
+          </div>
+        </div>
+        <div class='collapsible' id='Collection.search'>
+          <a href='#Collection.search'>
+            <code>
+              #search<span class='gray'>(query, config)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Search item(s).</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+<section class='py2 clearfix'>
+  <h2 id='Collection.search' class='mt0'>
+    search<span class='gray'>(query, config)</span>
+  </h2>
+  
+  
+  
+  
+  
+  <p>Search item(s).</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+.<
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+.<
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+>
+>
+ <strong>query</strong>
+          :
+          <div class='force-inline'>
+            <p>The query used to perform the search.
+The query is an array containing arrays.
+Each array is an acceptable scenario resulting in an <code>OR</code> operation.
+Each scenario is an array containing objects.
+Each object is a required parameters resulting in an <code>AND</code> operation.
+Each required parameter contains the following properties:</p>
+<hr />
+ - `field`: The name of the field to match.
+ - `operator`: The operator used to match the `value` based on `Collection.QUERY_OPERATORS`.
+ - `value`: The value to be matched.
+If `field` represents a nested Collection, value must be a nested query array targeting
+the fields of that Collection.
+
+          </div>
+        </li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+ <strong>config</strong>
+          :
+          <div class='force-inline'>
+            <p>The configuration for the search.
+Config may contain any combination of the following properties:</p>
+<hr />
+ - `count`: A boolean flag signifying that only a count should be returned.
+ - `onlyIds`: A boolean flag signifying that returned items should only contain an `id`. No
+nested items will be retrieved, although nested collections will still be searched for matching
+nested values based on the query.
+ - `pageNumber`: The number of the page of items to retrieve.
+ - `itemsPerPage`: The maximum number of items in each page of items.
+ - `orderBy`: An array of fields (in order of importance) by which the matched items will be sorted.
+ - `descending`: A boolean flag signifying that the items should be returned in reverse order.
+
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+</code>
+      :
+      <div class='force-inline'>
+        <p>The metadata and items matching the query.
+The returned object contains the following properties:</p>
+<hr />
+ - `totalItems`: The number of items matching the query.
+ - `totalPages`: The number of pages if `itemsPerPage` is a `number` on `config`.
+ - `data`: An array of items matched by the query. If `onlyIds` is set to `true` on the `config`,
+each item will only contain an `id`. Otherwise, all items are a full nested structure based
+on the `context`.
+
+      </div>
+</section>
+          </div>
+        </div>
+        <div class='collapsible' id='Collection.update'>
+          <a href='#Collection.update'>
+            <code>
+              #update<span class='gray'>(items)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Update item(s).
+If any items are missing from the nested structure they are deleted based on the
+<code>deleteNested</code> map of the applicable Collection.
+If any items are added to the nested structure they are created.
+Items are accounted for by <code>id</code> and not by the index for each item in an array.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+<section class='py2 clearfix'>
+  <h2 id='Collection.update' class='mt0'>
+    update<span class='gray'>(items)</span>
+  </h2>
+  
+  
+  
+  
+  
+  <p>Update item(s).
+If any items are missing from the nested structure they are deleted based on the
+<code>deleteNested</code> map of the applicable Collection.
+If any items are added to the nested structure they are created.
+Items are accounted for by <code>id</code> and not by the index for each item in an array.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li>(
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+|
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+.<
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+>
+)
+ <strong>items</strong>
+          :
+          <div class='force-inline'>
+            <p>The existing item or array of items to be updated.
+Each item must contain an <code>id</code>.</p>
+
+          </div>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code>(
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+|
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+.<
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+>
+)
+</code>
+      :
+      <div class='force-inline'>
+        <p>An object or array of objects representing the updated
+item(s) (each) with only the <code>id</code>.</p>
+
+      </div>
+</section>
+          </div>
+        </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='collection' class='mt0'>
+    collection<span class='gray'></span>
+  </h2>
+  
+  
+  
+  
+  
+  
+      <h4>Returns</h4>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+</code>
+      :
+      <div class='force-inline'>
+        <p>The MongoDB collection used to perform operations.</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='context' class='mt0'>
+    context<span class='gray'></span>
+  </h2>
+  
+  
+  
+  
+  
+  
+      <h4>Returns</h4>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+</code>
+      :
+      <div class='force-inline'>
+        <p>The context map for the Collection.</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='db' class='mt0'>
+    db<span class='gray'></span>
+  </h2>
+  
+  
+  
+  
+  
+  
+      <h4>Returns</h4>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+</code>
+      :
+      <div class='force-inline'>
+        <p>The MongoDB database containing the targeted collection.</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='deleteNested' class='mt0'>
+    deleteNested<span class='gray'></span>
+  </h2>
+  
+  
+  
+  
+  
+  
+      <h4>Returns</h4>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+</code>
+      :
+      <div class='force-inline'>
+        <p>The map used to determine if items from certain fields with
+nested collections will be deleted automatically during update and delete operations.
+Each key is a field name from the <code>context</code> and each value must be truthy.</p>
+
+      </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='name' class='mt0'>
+    name<span class='gray'></span>
+  </h2>
+  
+  
+  
+  
+  
+  
+      <h4>Returns</h4>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
+</code>
+      :
+      <div class='force-inline'>
+        <p>The human readable name of the Collection.</p>
+
+      </div>
+</section>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>
