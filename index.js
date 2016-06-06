@@ -285,15 +285,12 @@ export default class Collection {
    * Cyclical structures **are** permitted.
    * @param {Object} config The configuration for the Collection.
    * Config contains the following properties:
-   * <hr />
    *  - `name`: The human readable name of the Collection.
    *  - `context`: A map of field names to types.
    * Each key is the name of a field and each value is the valid type of data for that field.
-   * <hr />
    * Supported built-in/primitive types: Any serializable type. **WARNING:** `Object` and `Array` types
    * will not be not be type checked.
    * Nested types:
-   * <hr />
    *  - A nested `Collection`.
    *  - A nested `Array` containing a `Collection`.
    * `db`: The MongoDB database connection string including authentication information.
@@ -913,7 +910,6 @@ export default class Collection {
    * Each scenario is an array containing objects.
    * Each object is a required parameters resulting in an `AND` operation.
    * Each required parameter contains the following properties:
-   * <hr />
    *  - `field`: The name of the field to match.
    *  - `operator`: The operator used to match the `value` based on `Collection.QUERY_OPERATORS`.
    *  - `value`: The value to be matched.
@@ -922,7 +918,6 @@ export default class Collection {
    *
    * @param {Object} config The configuration for the search.
    * Config may contain any combination of the following properties:
-   * <hr />
    *  - `count`: A boolean flag signifying that only a count should be returned.
    *  - `onlyIds`: A boolean flag signifying that returned items should only contain an `id`. No
    * nested items will be retrieved, although nested collections will still be searched for matching
@@ -933,7 +928,6 @@ export default class Collection {
    *  - `descending`: A boolean flag signifying that the items should be returned in reverse order.
    * @returns {Object} The metadata and items matching the query.
    * The returned object contains the following properties:
-   * <hr />
    *  - `totalItems`: The number of items matching the query.
    *  - `totalPages`: The number of pages if `itemsPerPage` is a `number` on `config`.
    *  - `data`: An array of items matched by the query. If `onlyIds` is set to `true` on the `config`,
