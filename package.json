@@ -1,6 +1,6 @@
 {
   "name": "resistdesign-cjs",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A JavaScript Database Collection Manager with Context Driven Typing and Relationship Mapping.",
   "public": true,
   "main": "index.js",
