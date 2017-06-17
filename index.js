@@ -735,7 +735,7 @@ export default class Collection {
   }
 
   /**
-   * Initializer the MongoDB collection.
+   * Initialize the MongoDB collection.
    * */
   async init () {
     if (!this.collection) {
