@@ -4,29 +4,30 @@ A JavaScript Database Collection Manager with Context Driven Typing and Relation
 
 ## Installation
 
-Run `npm i -S @resistdesign/cjs`
+Run `npm i -S resistdesign-cjs`
 
 ## Usage
 
 ```js
-import Collection from '@resistdesign/cjs';
+import Collection from 'resistdesign-cjs';
 
-async function createTodo() {
+async function createTodo () {
   const todoContext = {
     title: String,
     description: String,
     createdOn: Date
   };
-  // Cyclical, nested items.
-  todoContext.childTodos = [todoContext];
-  const todos = await Collection.getCollectionStructure({
+  const todoConfig = {
     name: 'Todos',
     db: 'mongodb://localhost:27017/example-db',
     context: todoContext,
     deleteNested: {
       childTodos: true
     }
-  });
+  };
+  // Cyclical, nested items.
+  todoContext.childTodos = [todoConfig];
+  const todos = await Collection.getCollectionStructure(todoConfig);
   const createdOn = new Date();
 
   return await todos.create([

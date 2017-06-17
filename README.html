@@ -1,26 +1,27 @@
 <h1 id="collection-js">Collection JS</h1>
 <p>A JavaScript Database Collection Manager with Context Driven Typing and Relationship Mapping.</p>
 <h2 id="installation">Installation</h2>
-<p>Run <code>npm i -S @resistdesign/cjs</code></p>
+<p>Run <code>npm i -S resistdesign-cjs</code></p>
 <h2 id="usage">Usage</h2>
-<pre><code class="lang-js">import Collection from &#39;@resistdesign/cjs&#39;;
+<pre><code class="lang-js">import Collection from &#39;resistdesign-cjs&#39;;
 
-async function createTodo() {
+async function createTodo () {
   const todoContext = {
     title: String,
     description: String,
     createdOn: Date
   };
-  // Cyclical, nested items.
-  todoContext.childTodos = [todoContext];
-  const todos = await Collection.getCollectionStructure({
+  const todoConfig = {
     name: &#39;Todos&#39;,
     db: &#39;mongodb://localhost:27017/example-db&#39;,
     context: todoContext,
     deleteNested: {
       childTodos: true
     }
-  });
+  };
+  // Cyclical, nested items.
+  todoContext.childTodos = [todoConfig];
+  const todos = await Collection.getCollectionStructure(todoConfig);
   const createdOn = new Date();
 
   return await todos.create([
