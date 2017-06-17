@@ -4,7 +4,7 @@ const escapeRegex = (value) => {
   return value.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 };
 
-const processQueryCondition = async(queryCondition, collection) => {
+const processQueryCondition = async (queryCondition, collection) => {
   const newQueryCondition = {};
 
   if (queryCondition instanceof Object) {
@@ -65,7 +65,7 @@ const processQueryCondition = async(queryCondition, collection) => {
   return newQueryCondition;
 };
 
-const processQueryScenario = async(queryScenario, collection) => {
+const processQueryScenario = async (queryScenario, collection) => {
   const newConditions = [];
   const newScenario = { $and: newConditions };
 
@@ -98,7 +98,7 @@ const processQueryScenario = async(queryScenario, collection) => {
   return newScenario;
 };
 
-const processQuery = async(query, collection) => {
+const processQuery = async (query, collection) => {
   const newScenarios = [];
   const newQuery = {};
 
@@ -298,7 +298,7 @@ export default class Collection {
    * cyclical structures and avoiding infinite loops.
    * @returns {Collection} The configured, connected and initialized `Collection` instance.
    * */
-  static async getCollectionStructure(config, map = new Map()) {
+  static async getCollectionStructure (config, map = new Map()) {
     const { name, context, db } = config;
     const newContext = { ...context };
     const existingCollection = map instanceof Map ? map.get(config) : undefined;
@@ -329,7 +329,7 @@ export default class Collection {
     return newCollection;
   }
 
-  static async getDb(url) {
+  static async getDb (url) {
     return await new Promise((res, rej) => {
       MongoClient.connect(url, {
         server: {
@@ -345,7 +345,7 @@ export default class Collection {
     });
   }
 
-  static async getCollection(name, db) {
+  static async getCollection (name, db) {
     return await new Promise((res, rej) => {
       db.collection(name, (err, collection) => {
         if (err) {
@@ -357,7 +357,7 @@ export default class Collection {
     });
   }
 
-  static getCleanItem(item, context) {
+  static getCleanItem (item, context) {
     const newItem = {};
 
     if (item instanceof Object && item.hasOwnProperty('id')) {
@@ -403,7 +403,7 @@ export default class Collection {
     return newItem;
   }
 
-  static getCleanItems(items, context) {
+  static getCleanItems (items, context) {
     const newItems = [];
 
     let errors;
@@ -428,7 +428,7 @@ export default class Collection {
     return newItems;
   }
 
-  static async save(items, collection, update, loadData) {
+  static async save (items, collection, update, loadData) {
     const context = collection.context;
 
     let data;
@@ -566,7 +566,7 @@ export default class Collection {
           // TRICKY: Clean undefined values and don't use modifiers if there are none.
           for (let k in data) {
             if (data.hasOwnProperty(k) && k !== 'id') {
-              if (typeof data[k] === 'undefined') {
+              if (typeof data[k] === 'undefined' || data[k] === null) {
                 modifiers.$unset = modifiers.$unset || {};
                 modifiers.$unset[k] = '';
               } else {
@@ -582,9 +582,15 @@ export default class Collection {
             callBack
           );
         } else {
-          // TRICKY: Clean undefined values.
+          // TRICKY: Clean undefined/null values.
           for (let k in data) {
-            if (data.hasOwnProperty(k) && typeof data[k] === 'undefined') {
+            if (
+              data.hasOwnProperty(k) &&
+              (
+                typeof data[k] === 'undefined' ||
+                data[k] === null
+              )
+            ) {
               delete data[k];
             }
           }
@@ -595,7 +601,7 @@ export default class Collection {
     }
   }
 
-  static async deleteNested(id, collection, updatedItem) {
+  static async deleteNested (id, collection, updatedItem) {
     if (collection.deleteNested instanceof Object) {
       const context = collection.context;
       const item = await collection.read(id);
@@ -714,7 +720,7 @@ export default class Collection {
    * @param {Object} context The context map.
    * @param {Object} db The MongoDB instance.
    * */
-  constructor(name, context, db) {
+  constructor (name, context, db) {
     if (!name) {
       throw new Error('name is required');
     } else if (!context) {
@@ -731,7 +737,7 @@ export default class Collection {
   /**
    * Initializer the MongoDB collection.
    * */
-  async init() {
+  async init () {
     if (!this.collection) {
       this.collection = await Collection.getCollection(this.name, this.db);
     }
@@ -745,7 +751,7 @@ export default class Collection {
    * @param {Object|Array<Object>} items The item or array of items to be created.
    * @returns {Object|Array<Object>} An object or array of objects (each) with only the new `id`.
    * */
-  async create(items) {
+  async create (items) {
     return await Collection.save(items, this);
   }
 
@@ -755,7 +761,7 @@ export default class Collection {
    * @returns {Object|Array<Object>} An object or array of objects (each) with all nested objects
    * attached based on the `context`.
    * */
-  async read(ids) {
+  async read (ids) {
     if (ids instanceof Array) {
       const newItems = [];
       let errors;
@@ -849,7 +855,7 @@ export default class Collection {
    * @returns {Object|Array<Object>} An object or array of objects representing the updated
    * item(s) (each) with only the `id`.
    * */
-  async update(items) {
+  async update (items) {
     return await Collection.save(items, this, true);
   }
 
@@ -861,7 +867,7 @@ export default class Collection {
    * @returns {Object|Array<Object>} An object or array of objects representing the deleted
    * item(s) (each) with only the `id`.
    * */
-  async delete(ids) {
+  async delete (ids) {
     if (ids instanceof Array) {
       const newIds = [];
 
@@ -934,7 +940,7 @@ export default class Collection {
    * each item will only contain an `id`. Otherwise, all items are a full nested structure based
    * on the `context`.
    * */
-  async search(query, config) {
+  async search (query, config) {
     const results = {};
     const {
       count,
@@ -1017,7 +1023,7 @@ export default class Collection {
    * Close the database connection.
    * @param {Boolean} all A flag signifying that all nested database connections should also be closed.
    * */
-  async close(all) {
+  async close (all) {
     if (this.db) {
       await new Promise((res, rej) => {
         this.db.close(true, (err, result) => {
