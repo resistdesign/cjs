@@ -4,7 +4,7 @@ A JavaScript Database Collection Manager with Context Driven Typing and Relation
 
 ## Installation
 
-Run `npm i -S @resistdesign/cjs`
+Run `npm i -S resistdesign-cjs`
 
 ## Usage
 
